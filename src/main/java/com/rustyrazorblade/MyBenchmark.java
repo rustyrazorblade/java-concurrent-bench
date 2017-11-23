@@ -49,6 +49,9 @@ public class MyBenchmark {
     private ConcurrentSkipListMap<Integer, Integer> map;
     private ConcurrentLinkedQueue<Integer> queue;
 
+    @Param({"1", "10", "100"})
+    public int numElements;
+
     @Setup
     public void setup() {
         map = new ConcurrentSkipListMap<Integer, Integer>();
@@ -59,12 +62,16 @@ public class MyBenchmark {
     public void testMap() {
         // This is a demo/sample template for building your JMH benchmarks. Edit as needed.
         // Put your benchmark code here.
-        map.putIfAbsent(1, 1);
+        for(int i = 0; i < numElements; i++) {
+            map.putIfAbsent(i, i);
+        }
     }
 
     @Benchmark
     public void testQueue() {
-        queue.add(1);
+        for(int i = 0; i < numElements; i++) {
+            queue.add(i);
+        }
 
     }
 
